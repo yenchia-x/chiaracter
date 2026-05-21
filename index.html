@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>MOOMIN ASSEMBLE - Season 1</title>
+    <style>
+        /* 打造極致純白的藝廊背景 */
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            /* 讓滑動手感在 iPhone/Android 上像絲綢一樣順暢 */
+            -webkit-overflow-scrolling: touch; 
+        }
+
+        /* 作品容器：確保在各裝置上維持優雅的 3:4 比例呼吸空間 */
+        .gallery-container {
+            width: 100%;
+            max-width: 650px; /* 在大螢幕上限制寬度，維持高級設定集的洗練感 */
+            padding: 40px 20px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            gap: 60px; /* 每頁畫冊之間的優雅留白間距 */
+        }
+
+        /* 畫冊圖片的基礎設定 */
+        .artwork {
+            width: 100%;
+            height: auto;
+            aspect-ratio: 3 / 4; /* 強制網頁預留 3:4 空間，防止載入時畫面跳動 */
+            object-fit: contain;
+            display: block;
+            /* 溫和的載入漸顯效果 */
+            opacity: 0;
+            animation: fadeIn 1.2s ease-out forwards;
+        }
+
+        /* 讓作品優雅浮現的動畫 */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* 針對手機螢幕的微調，讓留白更精準 */
+        @media (max-width: 480px) {
+            .gallery-container {
+                padding: 20px 15px;
+                gap: 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="gallery-container">
+        <img class="artwork" src="cover.png" alt="Cover">
+    </div>
+
+</body>
+</html>
