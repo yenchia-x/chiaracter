@@ -30,6 +30,20 @@
             gap: 60px; /* 每頁畫冊之間的優雅留白間距 */
         }
 
+        /* 新增：動態生成的章節代碼樣式 */
+        .dynamic-chapter-code {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, monospace;
+            font-size: 11px;
+            font-weight: 500;
+            color: #1a1a1a;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: 8px; /* 代碼與下方圖片黑框的微小呼吸空間 */
+            padding-left: 2px;
+            opacity: 0;
+            animation: fadeIn 1.2s ease-out forwards;
+        }
+
         /* 畫冊圖片的基礎設定 */
         .artwork {
             width: 100%;
@@ -63,8 +77,8 @@
 <body>
 
     <div class="gallery-container">
-        <img class="artwork" src="Cover/01.webp" alt="Cover_01">
-        <img class="artwork" src="Cover/02.webp" alt="Ch_1">
+        <img class="artwork" src="Cover/01.webp" alt="Cover">
+        <img class="artwork" src="Cover/02.webp" alt="Chapter 1">
         <img class="artwork" src="Season1/01.webp" alt="101">
         <img class="artwork" src="Season1/02.webp" alt="102">
         <img class="artwork" src="Season1/03.webp" alt="103">
@@ -72,7 +86,7 @@
         <img class="artwork" src="Season1/05.webp" alt="105">
         <img class="artwork" src="Season1/06.webp" alt="106">
         <img class="artwork" src="Season1/07.webp" alt="107">
-        <img class="artwork" src="Cover/03.webp" alt="Ch_2">
+        <img class="artwork" src="Cover/03.webp" alt="Chapter 2">
         <img class="artwork" src="Cover/50.webp" alt="201">
         <img class="artwork" src="Cover/50.webp" alt="202">
         <img class="artwork" src="Cover/50.webp" alt="203">
@@ -80,9 +94,27 @@
         <img class="artwork" src="Cover/50.webp" alt="205">
         <img class="artwork" src="Cover/50.webp" alt="206">
         <img class="artwork" src="Cover/50.webp" alt="207">
-        <img class="artwork" src="Cover/04.webp" alt="Ch_3">
-        <img class="artwork" src="Cover/99.webp" alt="Cover_99">
+        <img class="artwork" src="Cover/04.webp" alt="Chapter 3">
+        <img class="artwork" src="Cover/99.webp" alt="THANKS FOR READING THIS">
     </div>
 
+    <!-- 新增：自動抓取 alt 並生成代碼的輕量腳本 -->
+    <script>
+        document.querySelectorAll('.artwork').forEach(img => {
+            // 1. 建立一個外殼結構容器
+            const wrapper = document.createElement('div');
+            wrapper.style.width = '100%';
+
+            // 2. 建立章節代碼標籤，直接沿用 alt 的文字
+            const codeDiv = document.createElement('div');
+            codeDiv.className = 'dynamic-chapter-code';
+            codeDiv.textContent = img.alt;
+
+            // 3. 在 DOM 中用 wrapper 把代碼和圖片包起來
+            img.parentNode.insertBefore(wrapper, img);
+            wrapper.appendChild(codeDiv);
+            wrapper.appendChild(img);
+        });
+    </script>
 </body>
 </html>
