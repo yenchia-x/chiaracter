@@ -3,7 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CHIARACTER Selected Season 1</title>
+    <title>CHIARACTER Selected</title>
+    <style>
+        /* 讓全域錨點跳轉具備絲滑的滾動體感 */
+        html { scroll-behavior: smooth; }
+    </style>
     <style>
         /* 打造極致純白的藝廊背景 */
         body {
@@ -23,13 +27,42 @@
         .gallery-container {
             width: 100%;
             max-width: 650px; /* 在大螢幕上限制寬度，維持高級設定集的洗練感 */
-            padding: 40px 20px;
+            padding: 80px 20px 40px 20px; /* 頂部增加到 80px，預留空間給固定的導覽列 */
             box-sizing: border-box;
             display: flex;
             flex-direction: column;
             gap: 60px; /* 每頁畫冊之間的優雅留白間距 */
         }
 
+        /* 頂部固定極簡導覽列 */
+        .gallery-nav {
+            position: fixed;
+            top: 24px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 24px;
+            z-index: 100;
+            background-color: rgba(212, 212, 214, 0.85); /* 半透明工藝灰，避免滑動時文字與後方作品重疊 */
+            padding: 6px 20px;
+            border-radius: 20px;
+            backdrop-filter: blur(8px); /* 現代感毛玻璃 */
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(17, 17, 17, 0.05);
+        }
+        .gallery-nav a {
+            font-family: -apple-system, BlinkMacSystemFont, monospace;
+            font-size: 11px;
+            color: #1a1a1a;
+            text-decoration: none;
+            letter-spacing: 0.1em;
+            opacity: 0.4;
+            transition: opacity 0.2s ease;
+        }
+        .gallery-nav a:hover, .gallery-nav a:active {
+            opacity: 1; /* 手機點擊或游標懸停時變清晰 */
+        }
+        
         /* 新增：動態生成的章節代碼樣式 */
         .dynamic-chapter-code {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, monospace;
@@ -68,7 +101,7 @@
         /* 針對手機螢幕的微調，讓留白更精準 */
         @media (max-width: 480px) {
             .gallery-container {
-                padding: 20px 15px;
+                padding: 70px 15px 20px 15px; /* 手機版同步預留頂部導覽列空間 */
                 gap: 40px;
             }
         }
@@ -76,6 +109,14 @@
 </head>
 <body>
 
+    <!-- 頂部極簡章節跳轉 -->
+    <div class="gallery-nav">
+        <a href="#cover">COVER</a>
+        <a href="#ch1">CH 1</a>
+        <a href="#ch2">CH 2</a>
+        <a href="#ch3">CH 3</a>
+    </div>
+    
     <div class="gallery-container">
         <img class="artwork" src="Cover/01.webp" alt="Cover">
         <img class="artwork" src="Cover/02.webp" alt="Chapter 1">
@@ -105,6 +146,13 @@
             const wrapper = document.createElement('div');
             wrapper.style.width = '100%';
 
+            // 根據你最新設定的 alt 文字，自動幫外殼補上對應的導覽 ID
+            const altText = img.alt.toUpperCase();
+            if (altText === 'COVER') wrapper.id = 'cover';
+            if (altText === 'CHAPTER 1') wrapper.id = 'ch1';
+            if (altText === 'CHAPTER 2') wrapper.id = 'ch2';
+            if (altText === 'CHAPTER 3') wrapper.id = 'ch3';
+            
             // 2. 建立章節代碼標籤，直接沿用 alt 的文字
             const codeDiv = document.createElement('div');
             codeDiv.className = 'dynamic-chapter-code';
