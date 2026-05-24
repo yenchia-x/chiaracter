@@ -62,6 +62,25 @@
         .gallery-nav a:hover, .gallery-nav a:active {
             opacity: 1; /* 手機點擊或游標懸停時變清晰 */
         }
+
+        /* 【全新升級】獨立的頂層數據標記，優雅懸浮於網頁右上角 */
+        .top-status-bar {
+            position: fixed;    /* 改為固定定位，與導覽列維持絕對的隊形 */
+            top: 4px;           /* 完美的對線：距離導覽列頂端（24px）上方剛好有優雅的留白 */
+            left: 50%;
+            transform: translateX(-50%); /* 完美的水平絕對置中 */
+            z-index: 101;       /* 確保高於導覽列（100），絕對不被遮擋 */
+            pointer-events: none; /* 讓鼠標事件穿透，完全不影響網頁滾動或點擊 */
+        }
+        .top-status-bar img {
+            display: inline-block; /* 配合 text-align 完美置中 */
+            height: 21px; 
+            opacity: 0.3; /* 回歸淡淡的工藝灰印刷感 */
+            filter: grayscale(1) contrast(1.2) brightness(1.05);
+             user-select: none;
+             -webkit-user-drag: none;
+            pointer-events: none;
+        }
         
         /* 新增：動態生成的章節代碼樣式 */
         .dynamic-chapter-code {
@@ -109,8 +128,13 @@
 </head>
 <body>
 
+    <div class="top-status-bar">
+        <img id="dynamic-counter" alt="Hits">
+    </div>
+
     <!-- 頂部極簡章節跳轉 -->
     <div class="gallery-nav">
+        <!-- 計數器圖片改由下方的 JavaScript 動態隨環境生成 -->
         <a href="#cover">COVER</a>
         <a href="#ch1">CH 1</a>
         <a href="#ch2">CH 2</a>
@@ -163,6 +187,33 @@
             wrapper.appendChild(codeDiv);
             wrapper.appendChild(img);
         });
+    </script>
+
+    <!-- 智能環境計數判定 -->
+    <script>
+        (function() {
+            // 1. 請將這裡改成你真正的 GitHub Pages 網址
+            const realProductionUrl = 'https://yenchia-x.github.io/chiaracter';
+
+            // 2. 檢查目前瀏覽器的網址狀態
+            const currentUrl = window.location.href;
+            const isLocal = currentUrl.includes('localhost') || currentUrl.includes('127.0.0.1') || currentUrl.startsWith('file:');
+            const isDevMode = currentUrl.includes('dev=true'); // 檢查網址有沒有帶 ?dev=true
+
+            let targetTrackUrl = realProductionUrl;
+
+            // 3. 如果是本地開發，或是線上網址帶有開發者參數，就切換到「測試用沙盒計數網址」
+            if (isLocal || isDevMode) {
+                targetTrackUrl = realProductionUrl + '-sandbox-testing-route';
+                // 這會讓計數器去累積到另一個不存在的網址，不會污染你真正的首頁數字
+            }
+
+            // 4. 換成更穩定的極簡流計數器 (指定純黑字體 #1a1a1a，無背景)
+            const baseUrl = 'https://api.visitorbadge.io/api/visitors';
+            const params = `?path=${encodeURIComponent(targetTrackUrl)}&label=HITS&labelColor=%231a1a1a&countColor=%231a1a1a&style=none`;
+
+            document.getElementById('dynamic-counter').src = baseUrl + params;
+        })();
     </script>
 </body>
 </html>
