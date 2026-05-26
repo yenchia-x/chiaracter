@@ -139,6 +139,8 @@
         <a href="#ch1">CH 1</a>
         <a href="#ch2">CH 2</a>
         <a href="#ch3">CH 3</a>
+        <a href="#ch4">CH 4</a>
+        <a href="#origin">ORIGIN</a>
     </div>
     
     <div class="gallery-container">
@@ -167,7 +169,14 @@
         <img class="artwork" src="Cover/50.webp" alt="305">
         <img class="artwork" src="Cover/50.webp" alt="306">
         <img class="artwork" src="Cover/50.webp" alt="307">
-        <img class="artwork" src="Cover/99.webp" alt="THANKS FOR READING THIS">
+        <img class="artwork" src="Cover/05.webp" alt="Chapter 4">
+        <img class="artwork" src="Cover/50.webp" alt="401">
+        <img class="artwork" src="Cover/50.webp" alt="402">
+        <img class="artwork" src="Cover/00.webp" alt="ORIGIN">
+        <img class="artwork" src="Season0/01.webp" alt="001">
+        <img class="artwork" src="Season0/02.webp" alt="002">
+        <img class="artwork" src="Cover/99.webp" alt="THANK YOU">
+        <img class="artwork" src="Cover/50.webp" alt="NEXT">
     </div>
 
     <!-- 新增：自動抓取 alt 並生成代碼的輕量腳本 -->
@@ -183,6 +192,8 @@
             if (altText === 'CHAPTER 1') wrapper.id = 'ch1';
             if (altText === 'CHAPTER 2') wrapper.id = 'ch2';
             if (altText === 'CHAPTER 3') wrapper.id = 'ch3';
+            if (altText === 'CHAPTER 4') wrapper.id = 'ch4';
+            if (altText === 'ORIGIN') wrapper.id = 'origin';
             
             // 2. 建立章節代碼標籤，直接沿用 alt 的文字
             const codeDiv = document.createElement('div');
