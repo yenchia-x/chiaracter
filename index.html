@@ -66,7 +66,7 @@
         /* 【全新升級】獨立的頂層數據標記，優雅懸浮於網頁右上角 */
         .top-status-bar {
             position: fixed;    /* 改為固定定位，與導覽列維持絕對的隊形 */
-            top: 4px;           /* 完美的對線：距離導覽列頂端（24px）上方剛好有優雅的留白 */
+            top: 4px;           /* 完美的對線：位於導覽列（top: 24px）正上方，留出細緻的呼吸空間 */
             left: 50%;
             transform: translateX(-50%); /* 完美的水平絕對置中 */
             z-index: 101;       /* 確保高於導覽列（100），絕對不被遮擋 */
@@ -172,7 +172,7 @@
 
     <!-- 新增：自動抓取 alt 並生成代碼的輕量腳本 -->
     <script>
-        document.querySelectorAll('.artwork').forEach(img => {
+        document.querySelectorAll('.artwork').forEach((img, index) => {
             // 1. 建立一個外殼結構容器
             const wrapper = document.createElement('div');
             wrapper.style.width = '100%';
@@ -187,7 +187,9 @@
             // 2. 建立章節代碼標籤，直接沿用 alt 的文字
             const codeDiv = document.createElement('div');
             codeDiv.className = 'dynamic-chapter-code';
-            codeDiv.textContent = img.alt;
+
+            const pageNumber = String(index + 1).padStart(2, '0');
+            codeDiv.textContent = `${pageNumber} / ${img.alt}`;
 
             // 3. 在 DOM 中用 wrapper 把代碼和圖片包起來
             img.parentNode.insertBefore(wrapper, img);
