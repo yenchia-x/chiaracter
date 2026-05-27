@@ -73,12 +73,12 @@
             pointer-events: none; /* 讓鼠標事件穿透，完全不影響網頁滾動或點擊 */
         }
         .top-status-bar img {
-            display: inline-block; /* 配合 text-align 完美置中 */
-            height: 21px; 
-            opacity: 0.3; /* 回歸淡淡的工藝灰印刷感 */
-            filter: grayscale(1) contrast(1.2) brightness(1.05);
-             user-select: none;
-             -webkit-user-drag: none;
+            height: 16px; /* 縮小一點，更顯精緻 */
+            opacity: 0.25; /* 淡淡的印刷感 */
+            /* 運用極致的對比度與混合模式，嘗試讓 Badge 的背景圖融進你的工藝灰 (#d4d4d6) 中 */
+            mix-blend-mode: multiply;
+            filter: grayscale(1) contrast(1.5);
+            user-select: none;
             pointer-events: none;
         }
         
